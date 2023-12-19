@@ -22,7 +22,7 @@ class Music {
     (this.title = title), (this.singer = singer), (this.img = img), (this.file = file);
   }
 
-  getNme() {
+  getName() {
     return this.title + " - " + this.singer;
   }
 }
