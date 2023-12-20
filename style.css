@@ -1,4 +1,4 @@
-.container {
+/* .container {
   width: 350px;
 }
 #controls i {
@@ -20,4 +20,44 @@
 }
 #music-image {
   width: 100%;
+} */
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  width: 400px;
+}
+
+#progress .times,
+.card-footer,
+.volume-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.volume-container i {
+  margin-right: 5px;
+}
+
+#controls button:nth-child(odd) {
+  width: 37px;
+  height: 37px;
+  text-align: center;
+  /* padding: 12px; */
+}
+#controls button:nth-child(even) {
+  width: 47px;
+  height: 47px;
+  text-align: center;
+}
+
+li.playing {
+  background-color: #0b5eb7;
+  color: #fff;
 }

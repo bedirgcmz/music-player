@@ -11,13 +11,15 @@ const currentTime = document.querySelector("#current-time");
 const progressBar = document.querySelector("#progress-bar");
 const volumeIcon = document.querySelector("#volume");
 const volumeBar = document.querySelector("#volume-bar");
+const musicListcontainer = document.querySelector("#music-list");
 
 const player = new MusicPlayer(musicList);
 
 window.addEventListener("load", () => {
   let music = player.getMusic();
-
   displayMusic(music);
+  displayMusicList(player.musicList);
+  isPlayingNow();
 });
 
 const displayMusic = (pMusic) => {
@@ -47,6 +49,7 @@ const prevMusic = () => {
   displayMusic(music);
   const isMusicPlay = container.classList.contains("playing");
   isMusicPlay ? playMusic() : "";
+  isPlayingNow();
 };
 const nextMusic = () => {
   player.next();
@@ -54,15 +57,16 @@ const nextMusic = () => {
   displayMusic(music);
   const isMusicPlay = container.classList.contains("playing");
   isMusicPlay ? playMusic() : "";
+  isPlayingNow();
 };
 const pauseMusic = () => {
   container.classList.remove("playing");
-  play.classList = "fa-solid fa-play";
+  play.querySelector("i").classList = "fa-solid fa-play";
   audio.pause();
 };
 const playMusic = () => {
   container.classList.add("playing");
-  play.classList = "fa-solid fa-pause";
+  play.querySelector("i").classList = "fa-solid fa-pause";
   audio.play();
 };
 const calculateDuration = (totalSecond) => {
@@ -116,4 +120,48 @@ volumeBar.addEventListener("input", (e) => {
     muteState = "loud";
     volumeIcon.classList = "fa-solid fa-volume-high";
   }
+});
+
+const displayMusicList = (list) => {
+  for (let i = 0; i < list.length; i++) {
+    let liTag = `
+          <li li-index="${i}" onclick="selectedMusic(this)" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>${list[i].getName()}</span>
+              <span id="music-${i}" class="badge bg-primary rounded-pill"></span>
+              <audio class="music-${i}" src="mp3/${list[i].file}"></audio>
+          </li>
+      `;
+
+    musicListcontainer.insertAdjacentHTML("beforeend", liTag);
+
+    let liAudioDuration = musicListcontainer.querySelector(`#music-${i}`);
+    let liAudioTag = musicListcontainer.querySelector(`.music-${i}`);
+
+    liAudioTag.addEventListener("loadeddata", () => {
+      liAudioDuration.innerText = calculateDuration(liAudioTag.duration);
+    });
+  }
+};
+
+const selectedMusic = (pSelectedSing) => {
+  player.index = pSelectedSing.getAttribute("li-index");
+  displayMusic(player.getMusic());
+  playMusic();
+  isPlayingNow();
+};
+
+const isPlayingNow = () => {
+  for (let li of musicListcontainer.querySelectorAll("li")) {
+    if (li.classList.contains("playing")) {
+      li.classList.remove("playing");
+    }
+
+    if (li.getAttribute("li-index") == player.index) {
+      li.classList.add("playing");
+    }
+  }
+};
+
+audio.addEventListener("ended", () => {
+  nextMusic();
 });
