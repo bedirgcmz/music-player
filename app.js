@@ -9,6 +9,8 @@ const play = document.querySelector("#controls #play");
 const duration = document.querySelector("#duration");
 const currentTime = document.querySelector("#current-time");
 const progressBar = document.querySelector("#progress-bar");
+const volumeIcon = document.querySelector("#volume");
+const volumeBar = document.querySelector("#volume-bar");
 
 const player = new MusicPlayer(musicList);
 
@@ -83,4 +85,35 @@ audio.addEventListener("timeupdate", () => {
 progressBar.addEventListener("input", () => {
   currentTime.textContent = calculateDuration(progressBar.value);
   audio.currentTime = progressBar.value;
+});
+
+let muteState = "loud";
+let currentVolume;
+volumeIcon.addEventListener("click", () => {
+  if (muteState === "loud") {
+    currentVolume = volumeBar.value;
+    audio.muted = true;
+    muteState = "silent";
+    volumeIcon.classList = "fa-solid fa-volume-xmark";
+    volumeBar.value = 0;
+  } else {
+    audio.muted = false;
+    muteState = "loud";
+    volumeIcon.classList = "fa-solid fa-volume-high";
+    volumeBar.value = currentVolume;
+  }
+});
+
+volumeBar.addEventListener("input", (e) => {
+  const volumeLevel = e.target.value;
+  audio.volume = volumeLevel / 100;
+  if (volumeLevel == 0) {
+    audio.muted = true;
+    muteState = "silent";
+    volumeIcon.classList = "fa-solid fa-volume-xmark";
+  } else {
+    audio.muted = false;
+    muteState = "loud";
+    volumeIcon.classList = "fa-solid fa-volume-high";
+  }
 });
