@@ -3,10 +3,20 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background: url(img/bg.jpeg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .container {
   width: 400px;
+  .card {
+    background: linear-gradient(135deg, #ed3a893b, #9001e400);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 }
 
 #progress .times,
@@ -19,8 +29,34 @@ body {
 
 .volume-container i {
   margin-right: 5px;
+  color: #fff;
 }
-
+input[type="range"] {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  /*  slider progress trick  */
+  overflow: hidden;
+  border-radius: 16px;
+}
+.btn {
+  background-color: #7e11bc;
+  border: 1px solid #7e11bc;
+}
+.btn:hover,
+.btn:active,
+.btn:focus-visible {
+  background-color: #fa3e7e !important;
+  border: 1px solid #fa3e7e !important;
+}
+/* .btn:active {
+  background-color: #fa3e7e !important;
+  border: 1px solid #fa3e7e !important;
+} */
 #controls button:nth-child(odd) {
   width: 37px;
   height: 37px;
@@ -33,7 +69,36 @@ body {
   text-align: center;
 }
 
-li.playing {
-  background-color: #0b5eb7;
+#music-list li {
+  background: linear-gradient(135deg, #a5b47361, #638db547);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+#music-list li:hover {
+  background-color: #7e11bc;
   color: #fff;
+  cursor: pointer;
+}
+
+li.playing {
+  background-color: #7e11bc;
+  color: #fff;
+}
+.badge {
+  background-color: #fa3e7e;
+}
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #7e11bc;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+  background-color: #7e11bc;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 255, 255);
 }
