@@ -53,15 +53,11 @@ input[type="range"] {
   background-color: #fa3e7e !important;
   border: 1px solid #fa3e7e !important;
 }
-/* .btn:active {
-  background-color: #fa3e7e !important;
-  border: 1px solid #fa3e7e !important;
-} */
+
 #controls button:nth-child(odd) {
   width: 37px;
   height: 37px;
   text-align: center;
-  /* padding: 12px; */
 }
 #controls button:nth-child(even) {
   width: 47px;
